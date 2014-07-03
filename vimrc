@@ -1,36 +1,37 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
 
 " let Vundle manage Vundle
-" required! 
-Bundle 'gmarik/vundle'
+" required!
+Plugin 'gmarik/Vundle.vim'
 
 " My Bundles here:
 "
 " original repos on github
-Bundle 'flazz/vim-colorschemes'
-Bundle 'tpope/vim-fugitive'
-Bundle 'mkitt/tabline.vim'
-Bundle 'tomtom/tcomment_vim'
-Bundle 'rking/ag.vim'
-Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'godlygeek/tabular'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-unimpaired'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'tpope/vim-fugitive'
+Plugin 'mkitt/tabline.vim'
+Plugin 'tomtom/tcomment_vim'
+Plugin 'rking/ag.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'godlygeek/tabular'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-unimpaired'
 
 " Github repos of the user 'vim-scripts'
 " => can omit the username part
 
 " non github repos
 
-syntax on
-
+call vundle#end()
 filetype plugin indent on     " required!
+
+syntax on
 
 "search looks for matches while typing and highlights the matches
 set incsearch
