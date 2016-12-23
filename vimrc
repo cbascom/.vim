@@ -37,6 +37,19 @@ filetype plugin indent on     " required!
 
 syntax on
 set encoding=utf-8
+let mapleader=" "
+set splitbelow
+set splitright
+
+" make it easier to switch between splits
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" custom keyboard mappings
+map <leader>c :tabclose<CR>
+map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 "search looks for matches while typing and highlights the matches
 set incsearch
@@ -61,10 +74,11 @@ colorscheme zenburn
 "set up folds
 set foldmethod=syntax
 autocmd FileType python setlocal foldmethod=expr
+let g:SimpylFold_fold_docstring = 0
 
 "autocomplete customization
 let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+let g:ycm_goto_buffer_command='new-or-existing-tab'
 
 " keeps the cursor centered on the screen while searching
 set scrolloff=7
@@ -114,15 +128,26 @@ endif
 " Status line including the git branch
 set laststatus=2
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
-"let g:syntastic_auto_loc_list=1
-"let g:syntastic_enable_signs=1
-"let g:syntastic_check_on_open=1
-"let g:syntastic_python_checkers = ['pylint']
-"let g:syntastic_ruby_checkers = ['rubylint']
-"let g:syntastic_haskell_checkers = ['hlint']
-"let g:syntastic_cpp_checkers = ['gcc', 'cpplint']
-"let g:syntastic_cpp_cpplint_args="--filter=-legal/copyright,-build/header_guard,-readability/streams"
-"let g:syntastic_cpp_compiler_options ='-Wall -std=c++11'
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_auto_jump = 3
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_enable_signs=1
+let g:syntastic_python_checkers = ['python', 'flake8']
 
 let g:agprg = 'ag --nogroup --nocolor --column'
+
+" Customize PYTHONPATH to include AFM security libraries
+py << EOF
+import os
+import sys
+
+if 'VIRTUAL_ENV' in os.environ:
+    project_base_dir = os.environ['VIRTUAL_ENV']
+    sys.path.append(os.path.join(project_base_dir, 'tests', os.environ['RELEASE'], 'security/lib'))
+EOF
