@@ -22,6 +22,10 @@ Plugin 'godlygeek/tabular'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-unimpaired'
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'nvie/vim-flake8'
 
 " Github repos of the user 'vim-scripts'
 " => can omit the username part
@@ -32,6 +36,7 @@ call vundle#end()
 filetype plugin indent on     " required!
 
 syntax on
+set encoding=utf-8
 
 "search looks for matches while typing and highlights the matches
 set incsearch
@@ -46,13 +51,20 @@ set softtabstop=4
 set tabstop=4
 set autoindent
 
-"after 80 characters new line
-set textwidth=80
+"after 79 characters new line
+set textwidth=79
 
+"support for color schemes
 set t_Co=256
 colorscheme zenburn
 
+"set up folds
 set foldmethod=syntax
+autocmd FileType python setlocal foldmethod=expr
+
+"autocomplete customization
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " keeps the cursor centered on the screen while searching
 set scrolloff=7
@@ -94,8 +106,9 @@ if has("autocmd")
   autocmd FileType make setlocal ts=4 sts=4 sw=4 noexpandtab
   autocmd FileType scss,html,css,ruby,eruby setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType javascript,cucumber,lua setlocal ts=2 sts=2 sw=2 expandtab
-  autocmd BufWritePre  *.js,*.rb,*.erb,*.cpp,*.h :%s/\s\+$//e
+  autocmd FileType python setlocal ts=4 sts=4 sw=4 expandtab
   autocmd BufWritePre * :%s/\s\+$//e
+  autocmd BufRead,BufNewFile *.py let python_highlight_all=1
 endif
 
 " Status line including the git branch
