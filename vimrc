@@ -113,27 +113,3 @@ set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 "let g:syntastic_cpp_compiler_options ='-Wall -std=c++11'
 
 let g:agprg = 'ag --nogroup --nocolor --column'
-
-" Allow for building vWLAN apps from within vi
-function! s:MakevWlan(module)
-    :let blah=a:module
-    :let clean=blah . "_clean"
-    :execute ':make ' . clean
-    :execute ':make ' . blah
-    cwindow
-endfunction
-command! -nargs=1 Makevwlan call s:MakevWlan(<f-args>)
-
-function! s:MakeAP(product, module)
-    :let blah="product=" . a:product . " " . a:module
-    :let clean=blah . "_clean"
-    :execute ':make ' . clean
-    :execute ':make ' . blah
-    copen
-endfunction
-
-command! -nargs=1 Make1930 call s:MakeAP('1930', <f-args>)
-command! -nargs=1 Make1920 call s:MakeAP('1920', <f-args>)
-command! -nargs=1 Make1880 call s:MakeAP('1880', <f-args>)
-command! -nargs=1 Make1800 call s:MakeAP('1800', <f-args>)
-
