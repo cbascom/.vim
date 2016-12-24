@@ -141,13 +141,3 @@ let g:syntastic_enable_signs=1
 let g:syntastic_python_checkers = ['python', 'flake8']
 
 let g:agprg = 'ag --nogroup --nocolor --column'
-
-" Customize PYTHONPATH to include AFM security libraries
-py << EOF
-import os
-import sys
-
-if 'VIRTUAL_ENV' in os.environ:
-    project_base_dir = os.environ['VIRTUAL_ENV']
-    sys.path.append(os.path.join(project_base_dir, 'tests', os.environ['RELEASE'], 'security/lib'))
-EOF
